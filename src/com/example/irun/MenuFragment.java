@@ -33,7 +33,7 @@ public class MenuFragment extends Fragment implements OnClickListener,OnItemClic
 		
 		drawerList = (ListView) view.findViewById(R.id.drawerList);
 		list = new ArrayList<String>();
-		list.add("天气");
+		list.add("设置");
 		list.add("签到");
 		list.add("成就");
 		list.add("背包");
@@ -74,25 +74,31 @@ public class MenuFragment extends Fragment implements OnClickListener,OnItemClic
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		if(position == 1) {
-			MainFragment.canRandom = false;
-			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE01");
-		}
-		else if(position == 2) {
-			MainFragment.canRandom = false;
-			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE02");
-		}
-		else if(position == 3) {
-			MainFragment.canRandom = false;
-			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE03");
-		}
-		else if(position == 4) {
-			MainFragment.canRandom = false;
-			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE04");
-		}
-		else if(position == 5) {
-			MainFragment.canRandom = false;
-			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE05");
-		}
+		if(position == 0) {
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.add(R.id.content, new StepSettingFragment());
+			ft.commit();
+		}		
+//		else if(position == 1) {
+//			MainFragment.canRandom = false;
+//			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE01");
+//		}
+//		else if(position == 2) {
+//			MainFragment.canRandom = false;
+//			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE02");
+//		}
+//		else if(position == 3) {
+//			MainFragment.canRandom = false;
+//			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE03");
+//		}
+//		else if(position == 4) {
+//			MainFragment.canRandom = false;
+//			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE04");
+//		}
+//		else if(position == 5) {
+//			MainFragment.canRandom = false;
+//			UnityPlayer.UnitySendMessage("unitychan","PlayAnim","1_POSE05");
+//		}
 	}
 }

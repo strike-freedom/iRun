@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 	private MainFragment fragment1;
 	private ChooseChatFragment fragment2;
 	private MyMapFragment fragment3;
-	private StepSettingFragment fragment4;
+	private WeatherFragment fragment4;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
 			radioGroup.getChildAt(3).setSelected(true);
 			if(fragment4 == null)
 			{
-				fragment4 = new StepSettingFragment();
+				fragment4 = new WeatherFragment();
 				ft.add(R.id.content, fragment4,"StepSettingFragment");
 			}
 			else 

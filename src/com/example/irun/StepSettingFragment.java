@@ -196,6 +196,7 @@ public class StepSettingFragment extends Fragment implements OnClickListener {
 	
 	private void toMainFragment()
 	{
+		MainFragment.drawerLayout.closeDrawers();
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.remove(this);

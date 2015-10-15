@@ -32,7 +32,6 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 	
 	private TextView textTitle;
 	private EditText editText;
-	private Button buttonBack;
 	private Button buttonAdd;
 	private Button buttonGroup;
 	
@@ -47,13 +46,11 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 		View view = inflater.inflate(R.layout.fragment_choose_chat, container, false);
 		textTitle = (TextView)view.findViewById(R.id.titleText);
 		editText = (EditText)view.findViewById(R.id.editText);
-		buttonBack = (Button)view.findViewById(R.id.buttonBack);
 		buttonAdd = (Button)view.findViewById(R.id.buttonAdd);
 		buttonGroup = (Button)view.findViewById(R.id.buttonGroup);
 		listView = (ListView)view.findViewById(R.id.listview);
 		
 		textTitle.setText(UserInfo.getID() + "µÄÍ¨Ñ¶Â¼");
-		buttonBack.setOnClickListener(this);
 		buttonAdd.setOnClickListener(this);
 		buttonGroup.setOnClickListener(this);
 		listView.setOnItemClickListener(this);
@@ -84,14 +81,6 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 		else if(v.getId() == R.id.buttonGroup)
 		{		
 			toChatFragment("Group");
-		}
-		else if(v.getId() == R.id.buttonBack)
-		{
-			FragmentManager fm = getFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.hide(this);
-			ft.show(fm.findFragmentByTag("MainFragment"));
-			ft.commit();
 		}
 	}
 
