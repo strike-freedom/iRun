@@ -3,6 +3,7 @@ package com.example.irun;
 import java.util.List;
 
 import android.content.Context;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class ChatMsgListViewAdapter extends BaseAdapter {
 		//}
 		
 		viewHolder.tvSendTime.setText(chatMsgEntity.getDate());  
-        viewHolder.tvUserName.setText(chatMsgEntity.getName());  
+        viewHolder.tvUserName.setText(chatMsgEntity.getName());
         viewHolder.tvContent.setText(chatMsgEntity.getMessage());  
         return convertView;
 	}

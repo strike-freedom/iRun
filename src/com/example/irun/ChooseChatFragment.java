@@ -93,6 +93,7 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 	
 	private void toChatFragment(String tag)
 	{
+		MainActivity.bottomBar.setVisibility(View.GONE);
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction(); 
 		ft.hide(this);

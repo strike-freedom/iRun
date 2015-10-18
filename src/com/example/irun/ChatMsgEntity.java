@@ -1,11 +1,13 @@
 package com.example.irun;
 
+import android.text.SpannableString;
+
 //聊天信息
 public class ChatMsgEntity {
 
 	private String name;//消息来自  
     private String date;//消息日期  
-    private String message;//消息内容  
+    private SpannableString message;//消息内容  
     private boolean isSend = true;//是否为发送的消息  
     
     public String getName() {  
@@ -24,11 +26,11 @@ public class ChatMsgEntity {
         this.date = date;  
     }  
   
-    public String getMessage() {  
+    public SpannableString getMessage() {  
         return message;  
     }  
   
-    public void setMessage(String message) {  
+    public void setMessage(SpannableString message) {  
         this.message = message;  
     }  
  
@@ -44,7 +46,7 @@ public class ChatMsgEntity {
     	
     }
     
-    public ChatMsgEntity(String name, String date, String message, boolean isSend) {  
+    public ChatMsgEntity(String name, String date, SpannableString message, boolean isSend) {  
         this.name = name;  
         this.date = date;  
         this.message = message;
