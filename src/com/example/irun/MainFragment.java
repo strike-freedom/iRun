@@ -92,14 +92,22 @@ public class MainFragment extends Fragment implements OnClickListener {
 		
 		drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 			@Override
+			public void onDrawerOpened(View drawerView) {
+				MainFragment.canRandom = false;
+//				UnityPlayer.UnitySendMessage("Main Camera","Move","-0.25");
+				super.onDrawerOpened(drawerView);
+			}
+			
+			@Override
 			public void onDrawerClosed(View drawerView) {
 				MainFragment.canRandom = true;
+//				UnityPlayer.UnitySendMessage("Main Camera","Move","0.25");
 				super.onDrawerClosed(drawerView);
 			}
 		});
 			
 		handler = new Handler();
-		
+//		
 //		hide();
 //		new Handler().postDelayed(new Runnable() {			
 //			@Override
@@ -261,7 +269,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 			UnityPlayer.UnitySendMessage("unitychan","PlayRandomAnim","null");
 			Random random = new Random();
 			int num = random.nextInt(11);
-			Toast.makeText(getActivity(), musicID[num] + "", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(getActivity(), MusicService.class);
 	        Bundle bundle = new Bundle();
 	        bundle.putInt("id",musicID[num]);

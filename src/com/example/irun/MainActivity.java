@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.app.FragmentManager;  
 import android.app.FragmentTransaction; 
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -26,7 +28,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		getWindow().setFormat(PixelFormat.TRANSLUCENT);  
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -53,18 +55,6 @@ public class MainActivity extends Activity {
 		});	
 
 		setFragmentShow(0);
-
-//		new Handler().postDelayed(new Runnable() {
-//		@Override
-//		public void run() {
-//			FragmentManager fm = getFragmentManager();
-//			FragmentTransaction ft = fm.beginTransaction();
-//			ft.hide(fm.findFragmentByTag("MainFragment"));
-//			ft.add(R.id.content, new LoginFragment(),"LoginFragment");
-//			ft.commit();		
-//		}
-//	}, 3000);
-		
 		startService(new Intent(MainActivity.this, SocketService.class));
 	}
 	

@@ -115,7 +115,7 @@ public final class R {
         public static final int whitenooutborder=0x7f02003f;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0046;
+        public static final int action_settings=0x7f0a0047;
         public static final int bottomBar=0x7f0a0002;
         public static final int btnCancel=0x7f0a0019;
         public static final int btnLogin=0x7f0a0018;
@@ -139,11 +139,11 @@ public final class R {
         public static final int expression=0x7f0a003e;
         public static final int future_weather_location_text=0x7f0a0037;
         public static final int gps_radio_group=0x7f0a0028;
-        public static final int gridview=0x7f0a0010;
+        public static final int gridview=0x7f0a003f;
         public static final int high=0x7f0a0030;
-        public static final int id=0x7f0a0044;
-        public static final int iv_userhead=0x7f0a0040;
-        public static final int line=0x7f0a0043;
+        public static final int id=0x7f0a0045;
+        public static final int iv_userhead=0x7f0a0041;
+        public static final int line=0x7f0a0044;
         public static final int linearLayout=0x7f0a0014;
         public static final int linearLayout2=0x7f0a0016;
         public static final int listview=0x7f0a000b;
@@ -166,7 +166,7 @@ public final class R {
         public static final int save=0x7f0a0035;
         public static final int sensitivity=0x7f0a002f;
         public static final int sensitivity_value=0x7f0a002d;
-        public static final int sign=0x7f0a0045;
+        public static final int sign=0x7f0a0046;
         public static final int step=0x7f0a0022;
         public static final int step_lenth=0x7f0a0032;
         public static final int step_lenth_value=0x7f0a0031;
@@ -178,12 +178,13 @@ public final class R {
         public static final int today_weather_des_text=0x7f0a0039;
         public static final int tomorrow_time_text=0x7f0a003a;
         public static final int tomorrow_weather_des_text=0x7f0a003b;
-        public static final int tv_chatcontent=0x7f0a0041;
-        public static final int tv_sendtime=0x7f0a003f;
-        public static final int tv_username=0x7f0a0042;
+        public static final int tv_chatcontent=0x7f0a0042;
+        public static final int tv_sendtime=0x7f0a0040;
+        public static final int tv_username=0x7f0a0043;
         public static final int unityViewLyaout=0x7f0a001b;
         public static final int user=0x7f0a0015;
         public static final int velocity=0x7f0a0025;
+        public static final int viewPage=0x7f0a0010;
         public static final int weight=0x7f0a0034;
         public static final int weight_value=0x7f0a0033;
     }
@@ -198,10 +199,11 @@ public final class R {
         public static final int fragment_step_setting=0x7f030007;
         public static final int fragment_weather=0x7f030008;
         public static final int grid_face=0x7f030009;
-        public static final int list_chat_left=0x7f03000a;
-        public static final int list_chat_right=0x7f03000b;
-        public static final int list_friend=0x7f03000c;
-        public static final int list_string=0x7f03000d;
+        public static final int grid_view=0x7f03000a;
+        public static final int list_chat_left=0x7f03000b;
+        public static final int list_chat_right=0x7f03000c;
+        public static final int list_friend=0x7f03000d;
+        public static final int list_string=0x7f03000e;
     }
     public static final class menu {
         public static final int main=0x7f090000;

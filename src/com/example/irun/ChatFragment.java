@@ -10,6 +10,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,6 +20,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -28,14 +31,12 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 //聊天界面
 public class ChatFragment extends Fragment implements 
@@ -51,10 +52,11 @@ public class ChatFragment extends Fragment implements
 	private ChatMsgListViewAdapter adapter;//聊天信息的适配器
 	private List<ChatMsgEntity> list;//聊天信息的数据
 
-	private GridView gridView;//表情的列表
-	private SimpleAdapter gridAdapter;//表情列表的适配器
-	private List<Map<String, Object>> gridList;//表情列表的数据
+	private ViewPager viewPager;
+	private PagerAdapter pagerAdapter;
+	private List<GridView> pageList;
 	
+	private int pageItemCount = 12;//每页12个表情
 	private String toID;//表示跟谁聊天的窗口
 	private MessageReceiver messageReceiver;//接受监听的对象
 	
@@ -75,7 +77,7 @@ public class ChatFragment extends Fragment implements
 		titleText = (TextView)view.findViewById(R.id.title);
 		
 		listView = (ListView)view.findViewById(R.id.listview);
-		gridView = (GridView)view.findViewById(R.id.gridview);
+		viewPager = (ViewPager)view.findViewById(R.id.viewPage);
 		
 		sendButton.setOnClickListener(this);
 		backButton.setOnClickListener(this);
@@ -86,21 +88,65 @@ public class ChatFragment extends Fragment implements
 		adapter = new ChatMsgListViewAdapter(getActivity(), list);
 		listView.setAdapter(adapter);
 		
-		//填充数据
-		gridList = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i < Expression.drawable.length; i++) {
-			Map<String, Object> item = new HashMap<String, Object>();
-			item.put("face", Expression.drawable[i]);
-	        gridList.add(item);
-		}
-		//第三个参数是单个grid的布局文件
-		//第四个参数是Map对象的哪些key对应的value来生成列表项
-		//第五个参数表示要填充的组件， Map对象key对应的资源与填充组件的顺序有对应关系 
-		gridAdapter = new SimpleAdapter(getActivity(), gridList, R.layout.grid_face, 
-				new String[]{"face"}, new int[]{R.id.expression});
-		gridView.setAdapter(gridAdapter);
-		gridView.setOnItemClickListener(this);
+		LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+		pageList = new ArrayList<GridView>();
 		
+		int pageCount = 0;
+		//Expression.drawable.length为26，即有3页
+		for (int i = 0; i < Expression.drawable.length;)
+		{
+			GridView gridView = (GridView) layoutInflater.inflate(R.layout.grid_view, null);
+			gridView.setTag(pageCount);
+			//填充数据
+			List<Map<String, Object>> gridList = new ArrayList<Map<String, Object>>();
+			for (int j = 0; j < pageItemCount; j++) 
+			{
+				if(i < Expression.drawable.length)
+				{
+					Map<String, Object> item = new HashMap<String, Object>();
+					item.put("face", Expression.drawable[i]);
+			        gridList.add(item);
+			        i++;
+				}			
+			}
+			//第三个参数是单个grid的布局文件
+			//第四个参数是Map对象的哪些key对应的value来生成列表项
+			//第五个参数表示要填充的组件， Map对象key对应的资源与填充组件的顺序有对应关系 
+			SimpleAdapter gridAdapter = new SimpleAdapter(getActivity(), gridList, R.layout.grid_face, 
+					new String[]{"face"}, new int[]{R.id.expression});
+			gridView.setAdapter(gridAdapter);
+			gridView.setOnItemClickListener(this);
+			pageList.add(gridView);
+			pageCount++;
+		}
+		
+		pagerAdapter = new PagerAdapter() {
+			
+			@Override
+			public void destroyItem(ViewGroup container, int position,
+					Object object) {
+				container.removeView(pageList.get(position));
+			}
+			
+			@Override
+			public Object instantiateItem(ViewGroup container, int position) {
+				View view = pageList.get(position);
+				container.addView(view);
+				return view;
+			}
+			
+			@Override
+			public boolean isViewFromObject(View arg0, Object arg1) {
+				return arg0 == arg1;
+			}
+			
+			@Override
+			public int getCount() {
+				return pageList.size();
+			}
+		};
+		
+		viewPager.setAdapter(pagerAdapter);
 		RegularExpressionUtil.init(getActivity());
 		initMessageReceiver();
 		
@@ -121,10 +167,10 @@ public class ChatFragment extends Fragment implements
 	        tx.commit();
 		}
 		else if(v.getId() == R.id.btn_face) {
-			if(gridView.getVisibility() == View.VISIBLE) {
-				gridView.setVisibility(View.GONE);
+			if(viewPager.getVisibility() == View.VISIBLE) {
+				viewPager.setVisibility(View.GONE);
 			} else {
-				gridView.setVisibility(View.VISIBLE);
+				viewPager.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -132,10 +178,11 @@ public class ChatFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String describe = Expression.describe[position];
+		int pos = (Integer)(parent.getTag()) * pageItemCount + position;
+		String describe = Expression.describe[pos];
 		
 		SpannableString ss = new SpannableString(describe);
-		Drawable d = getResources().getDrawable(Expression.drawable[position]);    
+		Drawable d = getResources().getDrawable(Expression.drawable[pos]);    
         d.setBounds(0, 0, d.getIntrinsicWidth()/2, d.getIntrinsicHeight()/2);
         ImageSpan span = new ImageSpan(d);
         ss.setSpan(span, 0, describe.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);

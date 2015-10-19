@@ -50,11 +50,16 @@ public class SocketService extends Service {
 	public static void send(String jsonString)
 	{
 		jsonString += "\n";
-		try {
-			bWriter.write(jsonString);
-			bWriter.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
+		try 
+		{
+			if(bWriter != null)
+			{
+				bWriter.write(jsonString);
+				bWriter.flush();
+			}		
+		} 
+		catch (IOException e) 
+		{
 		}	
 	}
 	
