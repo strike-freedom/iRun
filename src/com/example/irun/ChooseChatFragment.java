@@ -34,6 +34,7 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 	private EditText editText;
 	private Button buttonAdd;
 	private Button buttonGroup;
+	private Button buttonDel;
 	
 	private ListView listView;
 	private FriendEntityViewAdapter adapter;
@@ -48,11 +49,13 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 		editText = (EditText)view.findViewById(R.id.editText);
 		buttonAdd = (Button)view.findViewById(R.id.buttonAdd);
 		buttonGroup = (Button)view.findViewById(R.id.buttonGroup);
+		buttonDel = (Button)view.findViewById(R.id.buttonDel);
 		listView = (ListView)view.findViewById(R.id.listview);
 		
 		textTitle.setText(UserInfo.getID() + "µÄÍ¨Ñ¶Â¼");
 		buttonAdd.setOnClickListener(this);
 		buttonGroup.setOnClickListener(this);
+		buttonDel.setOnClickListener(this);
 		listView.setOnItemClickListener(this);
 		
 		list = new ArrayList<FriendEntity>();
@@ -81,6 +84,16 @@ public class ChooseChatFragment extends Fragment implements OnClickListener,OnIt
 		else if(v.getId() == R.id.buttonGroup)
 		{		
 			toChatFragment("Group");
+		}
+        else if(v.getId() == R.id.buttonDel){
+			
+			
+			int f2 =Integer.parseInt(editText.getText().toString()) - 1;
+	        list.remove(f2);
+			adapter.notifyDataSetChanged();
+			editText.setText("");   
+			
+			
 		}
 	}
 
